@@ -10,7 +10,7 @@
     stateProperties.push('rx', 'ry');
     var cacheProperties = fabric.Object.prototype.cacheProperties.concat();
     cacheProperties.push('rx', 'ry');
-  fabric.Maskedimage = fabric.util.createClass(fabric.Object, {
+    fabric.Maskedimage = fabric.util.createClass(fabric.Object, {
     initialize: function(element, options, callback) {
       options || (options = { });
       this.filters = [];
@@ -86,12 +86,8 @@
         maskImage.width, 
         maskImage.height);
       if( overlapRegionRect.width > 0 &&  overlapRegionRect.height > 0){
-        console.log('overlap region width ', overlapRegionRect.width);
-        console.log('overlap region height ', overlapRegionRect.height);
         var entireCanvasCtx = mycanvas.getContext('2d');
         entireCanvasCtx.globalCompositeOperation = "lighten";
-        var angle = mainImage.getAngle();
-        console.log('angle ', angle);
       }
       var newCanvasElCtx   = newCanvasEl.getContext('2d');   
       var newCanvasElImageData = newCanvasElCtx.getImageData(0, 0, newCanvasEl.width, newCanvasEl.height);

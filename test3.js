@@ -15,7 +15,7 @@ $(document).ready(function () {
   	var el, lastActive, object;
 
 	mycanvas  = new fabric.Canvas('c');
-	mycanvas.backgroundColor = "#68a5c4";
+	mycanvas.backgroundColor = "#d3d3d3";
 	mycanvas.preserveObjectStacking=true;
 	mycanvas.renderAll();
 	myctx = mycanvas.getContext("2d");
