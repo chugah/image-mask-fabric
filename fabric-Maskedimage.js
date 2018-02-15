@@ -235,5 +235,4 @@
   };
   fabric.Maskedimage.async = true;
   fabric.Maskedimage.pngCompression = 1;
-
 })(typeof exports !== 'undefined' ? exports : this);

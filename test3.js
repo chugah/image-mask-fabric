@@ -11,13 +11,15 @@ var MAX_TEST_COUNT=1;
 
 $(document).ready(function () {
 
+	var $ = function(id){return document.getElementById(id)};
+  	var el, lastActive, object;
+
 	mycanvas  = new fabric.Canvas('c');
 	mycanvas.backgroundColor = "#68a5c4";
 	mycanvas.preserveObjectStacking=true;
 	mycanvas.renderAll();
 	myctx = mycanvas.getContext("2d");
   
-
 	console.log("Loading main image...");
     fabric.Image.fromURL('./mask2.jpg', function(myImg) {
 		mainImage = myImg.set({ left: 200, top: 0 , width:300, height:218});
@@ -33,6 +35,75 @@ $(document).ready(function () {
 			mycanvas.add(maskImage); 
 		});
 	});
+
+	// crop image
+  	$('startCrop').onclick = function(){
+  	  	startCrop();
+  	};
+
+  	$('endCrop').onclick = function(){
+    	endCrop();
+  	};
+
+  	function startCrop(){
+
+	    mycanvas.remove(el);
+	    if(mycanvas.getActiveObject()) {  
+	      object=mycanvas.getActiveObject();
+	  
+	      if(lastActive !== object)
+	        {console.log('different object');}  
+	      else {console.log('same object');}
+	      if (lastActive && lastActive !== object) {
+	        lastActive.clipTo = null;    
+	      }
+	   
+	      el = new fabric.Rect({
+	        fill: 'transparent',
+	        originX: 'left',
+	        originY: 'top',
+	        stroke: '#ccc',
+	        strokeDashArray: [2, 2],
+	        opacity: 1,
+	        width: 1,
+	        height: 1,
+	        borderColor: '#36fd00',
+	        cornerColor: 'green',
+	        hasRotatingPoint:false,
+	        objectCaching: false
+	      });
+	  
+	      el.left=mycanvas.getActiveObject().left;
+	      el.top=mycanvas.getActiveObject().top;
+	      el.width=mycanvas.getActiveObject().width*mycanvas.getActiveObject().scaleX;
+	      el.height=mycanvas.getActiveObject().height*mycanvas.getActiveObject().scaleY;
+	    
+	      mycanvas.add(el);
+	      mycanvas.setActiveObject(el)
+	    }
+	  
+	    else {
+	      alert("Please select an object or layer");
+	    }
+	 }
+
+	  function endCrop(){
+	    var left = el.left - object.left;
+	    var top = el.top - object.top;
+	    
+	    left *= 1;
+	    top *= 1;
+	    
+	    var width = el.width * 1;
+	    var height = el.height * 1;
+	    object.clipTo = function (ctx) {      
+	      ctx.rect(-(el.width/2)+left, -(el.height/2)+top, parseInt(width*el.scaleX), parseInt(el.scaleY*height));
+	    }   
+	    mycanvas.remove(mycanvas.getActiveObject(el));
+	    //console.log('end crop, ', object);
+	    lastActive = object;
+	    mycanvas.renderAll();   
+	}
 });
 
 function getUnionRect( x1, y1, w1, h1, x2, y2, w2, h2 ) {
