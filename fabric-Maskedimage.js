@@ -90,10 +90,6 @@
         console.log('overlap region height ', overlapRegionRect.height);
         var entireCanvasCtx = mycanvas.getContext('2d');
         entireCanvasCtx.globalCompositeOperation = "lighten";
-        // this._drawCircle(entireCanvasCtx, overlapRegionRect.left, overlapRegionRect.top);
-        // this._drawCircle(entireCanvasCtx, overlapRegionRect.left + overlapRegionRect.width, overlapRegionRect.top);
-        // this._drawCircle(entireCanvasCtx, overlapRegionRect.left, overlapRegionRect.top + overlapRegionRect.height);
-        // this._drawCircle(entireCanvasCtx, overlapRegionRect.left+overlapRegionRect.width, overlapRegionRect.top+overlapRegionRect.height);
         var angle = mainImage.getAngle();
         console.log('angle ', angle);
       }
